@@ -5,6 +5,9 @@
 build/
 .xmake/
 
+_documentation
+_documentation/
+
 
 # ----------------------------------------------------------------------------------------
 #               cpp base github

@@ -4,4 +4,6 @@ add_rules("mode.debug", "mode.release")
 
 target("tutorial")
     set_kind("binary")
-    add_files("source/main.cpp")
+    add_files("source/*.cpp") -- adds every ccp file
+    add_includedirs("headers")
+

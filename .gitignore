@@ -8,6 +8,9 @@ build/
 _documentation
 _documentation/
 
+.claude/
+.agents/
+
 
 # ----------------------------------------------------------------------------------------
 #               cpp base github

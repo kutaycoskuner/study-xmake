@@ -5,6 +5,8 @@
 build/
 .xmake/
 
+_temp/
+
 _documentation
 _documentation/
 

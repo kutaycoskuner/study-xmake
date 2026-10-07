@@ -12,7 +12,7 @@
     <img alt="xmake" src="https://img.shields.io/badge/xmake-3.1-blue" />
     <img alt="Clang" src="https://img.shields.io/badge/Clang-22-blue?logo=llvm&logoColor=white" />
     <img alt="C++" src="https://img.shields.io/badge/C++-20-blue?logo=cplusplus&logoColor=white" />
-    <img alt="Project Version" src="https://img.shields.io/badge/Project_Version-0.12-blue" />
+    <img alt="Project Version" src="https://img.shields.io/badge/Project_Version-0.14-blue" />
     <img alt="Start Date" src="https://img.shields.io/badge/project_start-07_Oct_2026-blue" />
     <img alt="Last Update" src="https://img.shields.io/github/last-commit/kutaycoskuner/study-xmake" />
 </p>
@@ -24,9 +24,11 @@
 ```bash
 study-xmake/
 ├── headers/                    # Header files, found through add_includedirs("headers")
+├── libs/                       # Libraries built from source (header-hello-1.0.0: static library hello)
 ├── source/                     # Program source code (main.cpp, my_functions.cpp)
 ├── xmake.lua                   # Build description: targets, files, include folders, modes
-├── build/                      # Build output (generated, not committed)
+├── bin/                        # Program output: bin/<plat>/<arch>/<mode>/ (generated, not committed)
+├── build/                      # Object files and intermediates (generated, not committed)
 └── .xmake/                     # Stored configuration from `xmake f` (generated, not committed)
 ```
 
@@ -57,14 +59,15 @@ xmake f -c -p mingw --toolchain=clang -m release
 # 3. Build (-v prints the full compiler and linker commands)
 xmake -v
 
-# 4. Run the program
+# 4. Run the program (built to bin/mingw/x86_64/release/tutorial.exe)
 xmake run
 ```
 
 > `-p mingw` is required: inside MSYS2, xmake guesses the platform `msys`, which builds
 > programs that depend on `msys-2.0.dll`.
 >
-> Switch to a debug build with `xmake f -m debug`, then `xmake` again.
+> Switch to a debug build with `xmake f -p mingw --toolchain=clang -m debug`, then `xmake` again.
+> The output goes to `bin/mingw/x86_64/debug/`.
 
 ------------------------------------------------------------------------------------------
 
@@ -74,8 +77,8 @@ Each exercise adds one xmake concept, in the order study-cmake was built.
 
 - [x] 1. One program: `target`, `set_kind("binary")`, `add_files`
 - [x] 2. A second source file and a header folder: `add_files("source/*.cpp")`, `add_includedirs`
-- [ ] 3. Static library `hello`: `set_kind("static")`, `add_deps`
-- [ ] 4. Defines, build modes and output folder: `add_defines`, `xmake f -m debug/release`, `set_targetdir`
+- [x] 3. Static library `hello`: `set_kind("static")`, `add_deps`
+- [x] 4. Defines, build modes and output folder: `add_defines`, `xmake f -m debug/release`, `set_targetdir`
 - [ ] 5. Packages instead of submodules: `add_requires("glfw", "assimp")`, `add_packages`, `add_syslinks("opengl32")`
 
 ------------------------------------------------------------------------------------------

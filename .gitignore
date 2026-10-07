@@ -4,6 +4,7 @@
 
 build/
 .xmake/
+bin/
 
 _temp/
 

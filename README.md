@@ -12,7 +12,7 @@
     <img alt="xmake" src="https://img.shields.io/badge/xmake-3.1-blue" />
     <img alt="Clang" src="https://img.shields.io/badge/Clang-22-blue?logo=llvm&logoColor=white" />
     <img alt="C++" src="https://img.shields.io/badge/C++-20-blue?logo=cplusplus&logoColor=white" />
-    <img alt="Project Version" src="https://img.shields.io/badge/Project_Version-0.14-blue" />
+    <img alt="Project Version" src="https://img.shields.io/badge/Project_Version-0.15-blue" />
     <img alt="Start Date" src="https://img.shields.io/badge/project_start-07_Oct_2026-blue" />
     <img alt="Last Update" src="https://img.shields.io/github/last-commit/kutaycoskuner/study-xmake" />
 </p>
@@ -23,6 +23,7 @@
 
 ```bash
 study-xmake/
+├── data/                       # Test model test.stl, loaded by Assimp through DATA_DIR
 ├── headers/                    # Header files, found through add_includedirs("headers")
 ├── libs/                       # Libraries built from source (header-hello-1.0.0: static library hello)
 ├── source/                     # Program source code (main.cpp, my_functions.cpp)
@@ -37,12 +38,12 @@ study-xmake/
 ## Installation and Usage
 
 ### Prerequisites
-- **Windows 10/11**
-- **Git**: [Install Git](https://git-scm.com/downloads)
+- **Windows 10/11** with an OpenGL 3.3 capable graphics driver
 - **MSYS2**: [Install MSYS2](https://www.msys2.org/), then in the **MSYS2 CLANG64** shell:
     ```bash
-    pacman -S mingw-w64-clang-x86_64-clang mingw-w64-clang-x86_64-lld mingw-w64-clang-x86_64-xmake
+    pacman -S git mingw-w64-clang-x86_64-clang mingw-w64-clang-x86_64-lld mingw-w64-clang-x86_64-xmake
     ```
+    xmake needs `git` inside the shell to download packages.
 
 ### Build and run
 
@@ -57,9 +58,13 @@ cd study-xmake
 xmake f -c -p mingw --toolchain=clang -m release
 
 # 3. Build (-v prints the full compiler and linker commands)
+#    The first build asks to install glfw and assimp: answer y.
+#    They are built once with Clang (assimp takes several minutes) and cached
+#    in %LOCALAPPDATA%\.xmake\packages.
 xmake -v
 
 # 4. Run the program (built to bin/mingw/x86_64/release/tutorial.exe)
+#    Prints the test output, loads data/test.stl with Assimp, then opens a GLFW window.
 xmake run
 ```
 
@@ -79,7 +84,7 @@ Each exercise adds one xmake concept, in the order study-cmake was built.
 - [x] 2. A second source file and a header folder: `add_files("source/*.cpp")`, `add_includedirs`
 - [x] 3. Static library `hello`: `set_kind("static")`, `add_deps`
 - [x] 4. Defines, build modes and output folder: `add_defines`, `xmake f -m debug/release`, `set_targetdir`
-- [ ] 5. Packages instead of submodules: `add_requires("glfw", "assimp")`, `add_packages`, `add_syslinks("opengl32")`
+- [x] 5. Packages instead of submodules: `add_requires("glfw", "assimp")`, `add_packages`, `add_syslinks("opengl32")`
 
 ------------------------------------------------------------------------------------------
 
@@ -92,4 +97,5 @@ Each exercise adds one xmake concept, in the order study-cmake was built.
     - [study-cmake](https://github.com/kutaycoskuner/study_cmake): the CMake project rebuilt here
     - [study-opengl](https://github.com/kutaycoskuner/study-opengl): the renderer this toolchain is being learned for
 - **Dependencies**
-    - Tools: MSYS2 (CLANG64), Clang, LLD, xmake, Visual Studio Code
+    - Libraries (xmake packages): GLFW, Assimp, OpenGL
+    - Tools: MSYS2 (CLANG64), Clang, LLD, xmake, Git, Visual Studio Code

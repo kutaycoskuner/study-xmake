@@ -2,6 +2,9 @@ set_project("tutorial")
 set_languages("c++20")
 add_rules("mode.debug", "mode.release")
 set_targetdir("bin/$(plat)/$(arch)/$(mode)")
+add_requires("glfw", "assimp")
+add_requires("glad v0.1.36")
+add_requires("imgui", {configs = {glfw = true, opengl3 = true}})
 
 
 target("hello")
@@ -17,5 +20,7 @@ target("tutorial")
     add_includedirs("headers")
     add_deps("hello")
     add_defines('DATA_DIR="' .. (os.projectdir():gsub("\\", "/")) .. '/data/"')
+    add_packages("glfw", "assimp", "glad", "imgui")
+    add_syslinks("opengl32") -- windows own opengl lib. isnt a package
 
 
